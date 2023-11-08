@@ -1,11 +1,11 @@
 import './App.css';
-import AutoGrid from './layouts/AutoGrid';
+import Form from './components/Form';
 
 
 function App() {
   return (
     <div className="App">
-      <AutoGrid />
+      <Form />
     </div>
   );
 }
