@@ -3,19 +3,30 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 import axios from 'axios';
+import { dividerClasses } from '@mui/material';
+
+
+
+
 
 export default function Form() {
+    const [hasHeartDisease, setHasHeartDisease] = useState("2")
+    const [showAlert, setShowAlert] = useState(false)
 
     // save form data in state
-    const [formData, setFormData] = useState({
-        age: "",
-        cp: "",
-    });
+    const [formData, setFormData] = useState({});
 
     // handle change
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value })
+
+        console.log(formData)
     };
 
     // handleSubmit
@@ -28,7 +39,9 @@ export default function Form() {
 
         axios.post("http://localhost:8000/predict/", formData)
             .then((response) => {
-                console.log(response)
+                console.log(response.data.has_heart_disease)
+                setHasHeartDisease(response.data.has_heart_disease)
+                setShowAlert(true)
             })
             .catch((error) => {
                 // console.log(error)
@@ -46,117 +59,153 @@ export default function Form() {
             <form onSubmit={handleSubmit}>
                 <FormControl fullWidth >
 
-                    <TextField
-                        name='age'
-                        id="age"
-                        label="Age"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                    <Stack spacing={2}>
+                        <TextField
+                            name='age'
+                            id="age"
+                            label="Age"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='sex'
-                        id="sex"
-                        label="Sex"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='sex'
+                            id="sex"
+                            label="Sex"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='cp'
-                        id="cp"
-                        label="Chest Pain"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='cp'
+                            id="cp"
+                            label="Chest Pain Type"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='trestbps'
-                        id="trestbps"
-                        label="trestbps"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='trestbps'
+                            id="trestbps"
+                            label="Resting Blood Pressure"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='chol'
-                        id="chol"
-                        label="Cholesterol"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='chol'
+                            id="chol"
+                            label="Serum Cholestoral in mg/dl"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='fbs'
-                        id="fbs"
-                        label="fbs"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='fbs'
+                            id="fbs"
+                            label="Fasting Blood Sugar > 120 mg/dl"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='restecg'
-                        id="restecg"
-                        label="restecg"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='restecg'
+                            id="restecg"
+                            label="Resting Electrocardiographic Results (values 0,1,2)"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='thalach'
-                        id="thalach"
-                        label="thalach"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='thalach'
+                            id="thalach"
+                            label="Maximum Heart Rate Achieved"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='exang'
-                        id="exang"
-                        label="exang"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='exang'
+                            id="exang"
+                            label="Exercise Induced Angina"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='oldpeak'
-                        id="oldpeak"
-                        label="oldpeak"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='oldpeak'
+                            id="oldpeak"
+                            label="Oldpeak = ST depression induced by exercise relative to rest"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='slope'
-                        id="slope"
-                        label="slope"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='slope'
+                            id="slope"
+                            label="the slope of the peak exercise ST segment"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='ca'
-                        id="ca"
-                        label="ca"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='ca'
+                            id="ca"
+                            label="Number of major vessels (0-3) colored by flourosopy"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <TextField
-                        name='thal'
-                        id="thal"
-                        label="thal"
-                        variant="outlined"
-                        onChange={handleChange}
-                    />
+                        <TextField
+                            name='thal'
+                            id="thal"
+                            label="thal: 0 = normal; 1 = fixed defect; 2 = reversable defect"
+                            variant="outlined"
+                            onChange={handleChange}
+                        />
 
-                    <button type='submit'>Submit</button>
-
+                        <Button variant="contained" type='submit'>Submit</Button>
+                    </Stack>
                 </FormControl>
-
             </form>
+
+
+            <CustomAlert showAlert={showAlert} hasHeartDisease={hasHeartDisease} />
 
 
         </Box>
     );
+}
+
+
+function CustomAlert({ showAlert, hasHeartDisease }) {
+
+    let response = '';
+    let severity = '';
+
+    switch (hasHeartDisease) {
+        case 0:
+            response = "You do not have a heart disease"
+            severity = "success"
+            break
+
+        case 1:
+            response = "You have heart disease"
+            severity = "warning"
+            break;
+
+        default:
+            break;
+    }
+
+    return (
+        <div>
+            {showAlert && (
+                <Alert severity={severity} >
+                    <AlertTitle>Info</AlertTitle>
+                    <strong>{response}</strong>
+                </Alert>
+            )}
+        </div>
+    )
 }
