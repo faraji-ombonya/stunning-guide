@@ -18,7 +18,7 @@ import axios from 'axios';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select';
-import { Container, Paper } from '@mui/material';
+import { CircularProgress, Container, Paper } from '@mui/material';
 
 
 export default function Form() {
@@ -58,6 +58,7 @@ export default function Form() {
     // handleSubmit
     const handleSubmit = (event) => {
         event.preventDefault()
+        setIsLoading(true)
 
         console.log(formData)
         console.log("Submited!")
@@ -68,212 +69,222 @@ export default function Form() {
                 console.log(response.data.has_heart_disease)
                 setHasHeartDisease(response.data.has_heart_disease)
                 setShowAlert(true)
+                setIsLoading(false)
 
                 handleClickOpen(true)
             })
             .catch((error) => {
                 console.log(error.code)
                 console.log(error.response)
-                handleClickOpen(true)
+                // handleClickOpen(true)
+                // setIsLoading(false)
 
             })
 
     }
 
     return (
-        <Container maxWidth="sm" >
 
+        isLoading ?
 
-            <Box marginTop={4}>
-                <Paper elevation={3}>
-                    <Typography variant="h3" gutterBottom padding={2}>
-                        Stunning Guide
-                    </Typography>
-
-                    <form onSubmit={handleSubmit} >
-
-                        <Stack spacing={2} margin={2} marginBottom={2}>
-
-                            <TextField
-                                name='age'
-                                id="age"
-                                label="Age"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <FormControl>
-                                <InputLabel id="sex-label">Sex</InputLabel>
-                                <Select
-                                    name='sex'
-                                    labelId="sex-label"
-                                    id="sex"
-                                    value={formData['sex']}
-                                    label="Sex"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value={1}>Male</MenuItem>
-                                    <MenuItem value={0}>Female</MenuItem>
-                                </Select>
-                            </FormControl>
-
-                            <FormControl>
-                                <InputLabel id="cp-label">Chest Pain Type</InputLabel>
-                                <Select
-                                    name='cp'
-                                    labelId="cp-label"
-                                    id="cp"
-                                    value={formData['cp']}
-                                    label="Chest Pain Type"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value={0}>Type 1</MenuItem>
-                                    <MenuItem value={1}>Type 2</MenuItem>
-                                    <MenuItem value={2}>Type 3</MenuItem>
-                                    <MenuItem value={3}>Type 4</MenuItem>
-                                </Select>
-
-                            </FormControl>
-
-                            <TextField
-                                name='trestbps'
-                                id="trestbps"
-                                label="Resting Blood Pressure"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <TextField
-                                name='chol'
-                                id="chol"
-                                label="Serum Cholestoral in mg/dl"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <TextField
-                                name='fbs'
-                                id="fbs"
-                                label="Fasting Blood Sugar > 120 mg/dl"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <FormControl>
-                                <InputLabel id="restecg-label">Resting Electrorestecgrdiographic Results</InputLabel>
-                                <Select
-                                    name='restecg'
-                                    labelId="restecg-label"
-                                    id="restecg"
-                                    value={formData['restecg']}
-                                    label="Resting Electrorestecgrdiographic Results"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value={0}>0</MenuItem>
-                                    <MenuItem value={1}>1</MenuItem>
-                                    <MenuItem value={2}>2</MenuItem>
-                                </Select>
-                            </FormControl>
-
-                            <TextField
-                                name='thalach'
-                                id="thalach"
-                                label="Maximum Heart Rate Achieved"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <TextField
-                                name='exang'
-                                id="exang"
-                                label="Exercise Induced Angina"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <TextField
-                                name='oldpeak'
-                                id="oldpeak"
-                                label="Oldpeak = ST depression induced by exercise relative to rest"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <TextField
-                                name='slope'
-                                id="slope"
-                                label="The slope of the peak exercise ST segment"
-                                variant="outlined"
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <FormControl>
-                                <InputLabel id="ca-label">Number of major vessels colored by flourosopy</InputLabel>
-                                <Select
-                                    name='ca'
-                                    labelId="ca-label"
-                                    id="ca"
-                                    value={formData['ca']}
-                                    label="Number of major vessels colored by flourosopy"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value={0}>0</MenuItem>
-                                    <MenuItem value={1}>1</MenuItem>
-                                    <MenuItem value={2}>2</MenuItem>
-                                    <MenuItem value={3}>3</MenuItem>
-                                </Select>
-                            </FormControl>
-
-                            <FormControl>
-                                <InputLabel id="thal-label">Thal</InputLabel>
-                                <Select
-                                    name='thal'
-                                    labelId="thal-label"
-                                    id="thal"
-                                    value={formData['thal']}
-                                    label="Sex"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value={0}>Normal</MenuItem>
-                                    <MenuItem value={1}>Fixed Defect</MenuItem>
-                                    <MenuItem value={2}>Reversable Defect</MenuItem>
-                                </Select>
-                            </FormControl>
-
-                            <Box paddingBottom={2}>
-                                <Button fullWidth variant="contained" type='submit' ma>Submit</Button>
-                            </Box>
-
-                        </Stack>
-                    </form>
-                </Paper>
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                minHeight: '100vh',
+            }}
+            >
+                <CircularProgress />
             </Box>
 
+            :
+            <Container maxWidth="sm" >
+                <Box marginTop={4}>
+                    <Paper elevation={3}>
+                        <Typography variant="h3" gutterBottom padding={2}>
+                            Stunning Guide
+                        </Typography>
 
+                        <form onSubmit={handleSubmit}>
 
+                            <Stack spacing={2} margin={2} marginBottom={2}>
 
+                                <TextField
+                                    name='age'
+                                    id="age"
+                                    label="Age"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
 
-            <AlertDialog
-                open={open}
-                handleClose={handleClose}
-                handleClickOpen={handleClickOpen}
-                hasHeartDisease={hasHeartDisease}
-            />
+                                <FormControl>
+                                    <InputLabel id="sex-label">Sex</InputLabel>
+                                    <Select
+                                        name='sex'
+                                        labelId="sex-label"
+                                        id="sex"
+                                        value={formData['sex']}
+                                        label="Sex"
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <MenuItem value={1}>Male</MenuItem>
+                                        <MenuItem value={0}>Female</MenuItem>
+                                    </Select>
+                                </FormControl>
 
-        </Container>
+                                <FormControl>
+                                    <InputLabel id="cp-label">Chest Pain Type</InputLabel>
+                                    <Select
+                                        name='cp'
+                                        labelId="cp-label"
+                                        id="cp"
+                                        value={formData['cp']}
+                                        label="Chest Pain Type"
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <MenuItem value={0}>Type 1</MenuItem>
+                                        <MenuItem value={1}>Type 2</MenuItem>
+                                        <MenuItem value={2}>Type 3</MenuItem>
+                                        <MenuItem value={3}>Type 4</MenuItem>
+                                    </Select>
+
+                                </FormControl>
+
+                                <TextField
+                                    name='trestbps'
+                                    id="trestbps"
+                                    label="Resting Blood Pressure"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <TextField
+                                    name='chol'
+                                    id="chol"
+                                    label="Serum Cholestoral in mg/dl"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <TextField
+                                    name='fbs'
+                                    id="fbs"
+                                    label="Fasting Blood Sugar > 120 mg/dl"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <FormControl>
+                                    <InputLabel id="restecg-label">Resting Electrorestecgrdiographic Results</InputLabel>
+                                    <Select
+                                        name='restecg'
+                                        labelId="restecg-label"
+                                        id="restecg"
+                                        value={formData['restecg']}
+                                        label="Resting Electrorestecgrdiographic Results"
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <MenuItem value={0}>0</MenuItem>
+                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem value={2}>2</MenuItem>
+                                    </Select>
+                                </FormControl>
+
+                                <TextField
+                                    name='thalach'
+                                    id="thalach"
+                                    label="Maximum Heart Rate Achieved"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <TextField
+                                    name='exang'
+                                    id="exang"
+                                    label="Exercise Induced Angina"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <TextField
+                                    name='oldpeak'
+                                    id="oldpeak"
+                                    label="Oldpeak = ST depression induced by exercise relative to rest"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <TextField
+                                    name='slope'
+                                    id="slope"
+                                    label="The slope of the peak exercise ST segment"
+                                    variant="outlined"
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <FormControl>
+                                    <InputLabel id="ca-label">Number of major vessels colored by flourosopy</InputLabel>
+                                    <Select
+                                        name='ca'
+                                        labelId="ca-label"
+                                        id="ca"
+                                        value={formData['ca']}
+                                        label="Number of major vessels colored by flourosopy"
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <MenuItem value={0}>0</MenuItem>
+                                        <MenuItem value={1}>1</MenuItem>
+                                        <MenuItem value={2}>2</MenuItem>
+                                        <MenuItem value={3}>3</MenuItem>
+                                    </Select>
+                                </FormControl>
+
+                                <FormControl>
+                                    <InputLabel id="thal-label">Thal</InputLabel>
+                                    <Select
+                                        name='thal'
+                                        labelId="thal-label"
+                                        id="thal"
+                                        value={formData['thal']}
+                                        label="Sex"
+                                        onChange={handleChange}
+                                        required
+                                    >
+                                        <MenuItem value={0}>Normal</MenuItem>
+                                        <MenuItem value={1}>Fixed Defect</MenuItem>
+                                        <MenuItem value={2}>Reversable Defect</MenuItem>
+                                    </Select>
+                                </FormControl>
+
+                                <Box paddingBottom={2}>
+                                    <Button fullWidth variant="contained" type='submit' ma>Submit</Button>
+                                </Box>
+
+                            </Stack>
+                        </form>
+                    </Paper>
+                </Box>
+
+                <AlertDialog
+                    open={open}
+                    handleClose={handleClose}
+                    handleClickOpen={handleClickOpen}
+                    hasHeartDisease={hasHeartDisease}
+                />
+
+            </Container>
     );
 }
 
