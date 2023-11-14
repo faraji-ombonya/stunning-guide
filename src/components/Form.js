@@ -24,10 +24,7 @@ import { CircularProgress, Container, Paper } from '@mui/material';
 export default function Form() {
     const [hasHeartDisease, setHasHeartDisease] = useState("2")
     const [showAlert, setShowAlert] = useState(false)
-    const [selectedValue, setSelectedValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
-
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -79,6 +76,10 @@ export default function Form() {
                 // handleClickOpen(true)
                 // setIsLoading(false)
 
+                if (error.code === "ERR_NETWORK") {
+                    console.log("Network Error")
+                    setIsLoading(false)
+                }
             })
 
     }
@@ -271,7 +272,6 @@ export default function Form() {
                                 <Box paddingBottom={2}>
                                     <Button fullWidth variant="contained" type='submit' ma>Submit</Button>
                                 </Box>
-
                             </Stack>
                         </form>
                     </Paper>
