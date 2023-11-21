@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/stunning-guide-deployment/static/css/main.c0e2d5c9.css",
-    "main.js": "/stunning-guide-deployment/static/js/main.a670955b.js",
-    "static/js/787.933ba4db.chunk.js": "/stunning-guide-deployment/static/js/787.933ba4db.chunk.js",
-    "index.html": "/stunning-guide-deployment/index.html",
-    "main.c0e2d5c9.css.map": "/stunning-guide-deployment/static/css/main.c0e2d5c9.css.map",
-    "main.a670955b.js.map": "/stunning-guide-deployment/static/js/main.a670955b.js.map",
-    "787.933ba4db.chunk.js.map": "/stunning-guide-deployment/static/js/787.933ba4db.chunk.js.map"
+    "main.css": "/stunning-guide/static/css/main.c0e2d5c9.css",
+    "main.js": "/stunning-guide/static/js/main.a690eba6.js",
+    "static/js/787.933ba4db.chunk.js": "/stunning-guide/static/js/787.933ba4db.chunk.js",
+    "index.html": "/stunning-guide/index.html",
+    "main.c0e2d5c9.css.map": "/stunning-guide/static/css/main.c0e2d5c9.css.map",
+    "main.a690eba6.js.map": "/stunning-guide/static/js/main.a690eba6.js.map",
+    "787.933ba4db.chunk.js.map": "/stunning-guide/static/js/787.933ba4db.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c0e2d5c9.css",
-    "static/js/main.a670955b.js"
+    "static/js/main.a690eba6.js"
   ]
 }
