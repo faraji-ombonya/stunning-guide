@@ -3,7 +3,7 @@
 The front-end of a heart disease prediction system. It is powered by a [django API backend](https://github.com/faraji-ombonya/cautious-fortnight) 
 that uses a [classification model](https://github.com/faraji-ombonya/solid-adventure) to predict whether one has heart disease or not.
 
-## Technologies and Tools
+## Languages and Frameworks
 
 - **JavaScript:** Used for developing the user interface.
 - **React:** Employed for building a dynamic and responsive web application.
